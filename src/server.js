@@ -2,10 +2,11 @@ import express from 'express'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 import { makeExecutableSchema } from 'graphql-tools'
 import bodyParser from 'body-parser'
-import morgan from 'morgan'
 import cors from 'cors'
 
 import { pool } from './db/index'
+import typeDefs from './graphql/types/index'
+import resolvers from './graphql/resolvers/index'
 
 const app = express()
 
@@ -14,13 +15,12 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(bodyParser.json())
-app.use(morgan('short'))
 app.use(cors())
 
-// const schema = makeExecutableSchema({
-//   typeDefs,
-//   resolvers
-// })
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+})
 
 app.use(
   '/graphql',
