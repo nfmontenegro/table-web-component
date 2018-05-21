@@ -32,7 +32,7 @@ app.get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 app.listen(process.env.SERVERPORT, err => {
   err
     ? console.log('Something is wrong! 🔥')
-    : console.log('🚀  App running in port: 8000')
+    : console.log(`🚀  Api running in port: http://localhost:8000/graphiql`)
 })
 
 export default app

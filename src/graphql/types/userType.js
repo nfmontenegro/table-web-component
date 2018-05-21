@@ -1,13 +1,16 @@
 export default `
+"User Schema"
 type User {
+    id: Int!
     firstname: String
     lastname: String
     age: Int
     phone: String
   }
   type Query {
-    "Obtener todos las películas"
+    "Get all the users"
     listUsers: [User],
-    listUser(id: Int): [User]
+    "Get a user"
+    listUser(id: Int!): [User]
   }
 `
