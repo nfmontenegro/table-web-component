@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 
 import { pool } from './db/index'
+import { verifyToken } from './middleware/jwt'
 import typeDefs from './graphql/types/index'
 import resolvers from './graphql/resolvers/index'
 
@@ -25,7 +26,7 @@ const schema = makeExecutableSchema({
 app.use(
   '/graphql',
   bodyParser.json(),
-  graphqlExpress({ schema, context: { pool } })
+  graphqlExpress(req => ({ schema, context: { pool } }))
 )
 app.get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 
