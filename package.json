@@ -4,7 +4,7 @@
   "description": "crud operations",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"NODE_ENV===production nodemon server/server.js --exec babel-node --presets es2015,stage-2\" \"webpack-dev-server --config ./webpack.config.js --mode development\"",
+    "start": "concurrently \"NODE_ENV===development nodemon server/server.js --exec babel-node --presets es2015,stage-2\" \"webpack-dev-server --config ./webpack.config.js --mode development\"",
     "test": "npm test"
   },
   "repository": {
