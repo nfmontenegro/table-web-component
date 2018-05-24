@@ -1,0 +1,9 @@
+ query USERS_LIST {
+  listUsers {
+    id
+    firstname
+    lastname
+    age
+    phone
+  }
+}
