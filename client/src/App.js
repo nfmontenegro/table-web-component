@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListUsers } from './components/ListUsers'
+import ListUsers from './components/ListUsers'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 
