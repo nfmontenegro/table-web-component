@@ -55,7 +55,7 @@ class ListUsers extends React.Component {
                               <Mutation
                                 mutation={DELETE_USER_MUTATION}
                                 variables={{ id: user.id }}
-                                update={this.update}>
+                                refetchQueries={[{ query: USERS_LIST_QUERY }]}>
                                 {(deleteUser, { loading, error }) => (
                                   <div>
                                     <Button
