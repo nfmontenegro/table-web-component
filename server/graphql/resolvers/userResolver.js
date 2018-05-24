@@ -5,23 +5,21 @@ export default {
     listUsers: async (parent, args, { pool, user }) => {
       const queryDb = 'SELECT * FROM users'
       const { rows, fields } = await pool.query(queryDb)
-      const payload = authService().signJWT({ rows })
-      const response = authService().verifyJWT(payload)
+      // const payload = authService().signJWT({ rows })
+      // const response = authService().verifyJWT(payload)
       return rows
     },
     listUser: async (parent, { id }, { pool }) => {
       const queryDb = `SELECT * FROM users WHERE id=${id}`
       const { rows } = await pool.query(queryDb)
-      return rows
+      return rows[0]
     }
   },
   Mutation: {
     deleteUser: async (parent, { id }, { pool }) => {
       const queryDb = `DELETE FROM users WHERE id=${id}`
       const response = await pool.query(queryDb)
-      const users = 'SELECT * FROM users'
-      const { rows } = await pool.query(users)
-      return rows
+      return { id }
     }
   }
 }

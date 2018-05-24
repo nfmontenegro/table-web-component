@@ -1,9 +1,15 @@
- query USERS_LIST {
+query USERS_LIST_QUERY {
   listUsers {
     id
     firstname
     lastname
     age
     phone
+  }
+}
+
+mutation DELETE_USER_MUTATION ($id: Int!) {
+  deleteUser(id: $id){
+    id
   }
 }

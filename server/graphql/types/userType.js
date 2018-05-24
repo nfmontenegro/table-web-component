@@ -1,6 +1,7 @@
 export default `
-"User Schema"
-type User {
+  "User Schema"
+
+  type User {
     id: Int!
     firstname: String
     lastname: String
@@ -12,11 +13,15 @@ type User {
     "Get all the users"
     listUsers: [User],
     "Get a user"
-    listUser(id: Int!): [User]
+    listUser(id: Int!): User
   }
   
   type Mutation {
     "Delete user"
-    deleteUser(id: Int!): [User]  
+    deleteUser(id: Int!): deletedUser
+  }
+
+  type deletedUser {
+    id: Int!
   }
 `
