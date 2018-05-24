@@ -26,6 +26,12 @@ class ListUsers extends React.Component {
     proxy.writeQuery({ query: USERS_LIST_QUERY, data })
   }
 
+  handleDelete = deleteUser => {
+    if (confirm('Are you sure you want to delete this item?')) {
+      deleteUser()
+    }
+  }
+
   render() {
     return (
       <Query query={USERS_LIST_QUERY}>
@@ -56,15 +62,9 @@ class ListUsers extends React.Component {
                                   <Button
                                     color="red"
                                     style={{ float: 'right' }}
-                                    onClick={() => {
-                                      if (
-                                        confirm(
-                                          'Are you sure you want to delete this item?'
-                                        )
-                                      ) {
-                                        deleteUser()
-                                      }
-                                    }}>
+                                    onClick={() =>
+                                      this.handleDelete(deleteUser)
+                                    }>
                                     Eliminar
                                   </Button>
                                 )}
