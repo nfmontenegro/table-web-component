@@ -7,10 +7,16 @@ type User {
     age: Int
     phone: String
   }
+
   type Query {
     "Get all the users"
     listUsers: [User],
     "Get a user"
     listUser(id: Int!): [User]
+  }
+  
+  type Mutation {
+    "Delete user"
+    deleteUser(id: Int!): [User]  
   }
 `
