@@ -5,6 +5,8 @@ import {
   DELETE_USER_MUTATION
 } from '../queries/queries.graphql'
 import { Button, Card, Container, Grid } from 'semantic-ui-react'
+import { Loading } from './Loading'
+import { Error } from './Error'
 import './index.css'
 
 class ListUsers extends React.Component {
@@ -32,8 +34,8 @@ class ListUsers extends React.Component {
     return (
       <Query query={USERS_LIST_QUERY}>
         {({ loading, error, data }) => {
-          if (loading) return <p>Loading ...</p>
-          if (error) return <p>Something is wrong! 😕</p>
+          if (loading) return <Loading />
+          if (error) return <Error />
           return (
             <Container className="mt-20 mb-20">
               <Grid columns={4}>
@@ -66,8 +68,8 @@ class ListUsers extends React.Component {
                                       }>
                                       Eliminar
                                     </Button>
-                                    {loading && <p>Loading...</p>}
-                                    {error && <p>Error :( Please try again</p>}
+                                    {loading && <Loading />}
+                                    {error && <Error />}
                                   </div>
                                 )}
                               </Mutation>
@@ -77,7 +79,7 @@ class ListUsers extends React.Component {
                       </Grid.Column>
                     ))
                   ) : (
-                    <div>No hay usuarios</div>
+                    <h2 className="center aligned">No hay usuarios</h2>
                   )}
                 </Grid.Row>
               </Grid>
