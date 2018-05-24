@@ -8,21 +8,17 @@ import { Button, Card, Container, Grid } from 'semantic-ui-react'
 import './index.css'
 
 class ListUsers extends React.Component {
-  state = {
-    images: []
-  }
-
-  componentDidMount() {
-    return fetch('https://randomuser.me/api/?results=20')
-      .then(response => response.json())
-      .then(data => data.results.map(users => users.picture.large))
-      .then(images => this.setState({ images }))
-  }
-
   update = (proxy, payload) => {
+    //payload from graphQL
     const { deleteUser } = payload.data
+
+    //const data = userList from query
     const data = proxy.readQuery({ query: USERS_LIST_QUERY })
+
+    //filter differents users from deleted id
     data.listUsers = data.listUsers.filter(user => user.id !== deleteUser.id)
+
+    //rewrite userList
     proxy.writeQuery({ query: USERS_LIST_QUERY, data })
   }
 
@@ -39,14 +35,16 @@ class ListUsers extends React.Component {
           if (loading) return <p>Loading ...</p>
           if (error) return <p>Something is wrong! 😕</p>
           return (
-            <Container className="mt-20">
+            <Container className="mt-20 mb-20">
               <Grid columns={4}>
                 <Grid.Row>
                   {data.listUsers.length !== 0 ? (
                     data.listUsers.map((user, index) => (
                       <Grid.Column key={user.id}>
                         <Card
-                          image={this.state.images[index]}
+                          image={
+                            'http://elporvenir.mx/imagenes/editorialistasPerfil/default.png'
+                          }
                           header={user.firstname}
                           meta={user.lastname}
                           description={user.phone}
@@ -58,15 +56,19 @@ class ListUsers extends React.Component {
                                 mutation={DELETE_USER_MUTATION}
                                 variables={{ id: user.id }}
                                 update={this.update}>
-                                {(deleteUser, { error }) => (
-                                  <Button
-                                    color="red"
-                                    style={{ float: 'right' }}
-                                    onClick={() =>
-                                      this.handleDelete(deleteUser)
-                                    }>
-                                    Eliminar
-                                  </Button>
+                                {(deleteUser, { loading, error }) => (
+                                  <div>
+                                    <Button
+                                      color="red"
+                                      style={{ float: 'right' }}
+                                      onClick={() =>
+                                        this.handleDelete(deleteUser)
+                                      }>
+                                      Eliminar
+                                    </Button>
+                                    {loading && <p>Loading...</p>}
+                                    {error && <p>Error :( Please try again</p>}
+                                  </div>
                                 )}
                               </Mutation>
                             </div>
