@@ -19,7 +19,7 @@ export default {
     deleteUser: async (parent, { id }, { pool }) => {
       const queryDb = `DELETE FROM users WHERE id=${id}`
       const response = await pool.query(queryDb)
-      return { id }
+      return { id, msg: `User with id ${id} deleted` }
     }
   }
 }

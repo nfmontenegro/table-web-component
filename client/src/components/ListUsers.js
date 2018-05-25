@@ -4,30 +4,41 @@ import {
   USERS_LIST_QUERY,
   DELETE_USER_MUTATION
 } from '../queries/queries.graphql'
-import { Button, Card, Container, Grid } from 'semantic-ui-react'
+import { Button, Card, Confirm, Container, Grid } from 'semantic-ui-react'
 import { Loading } from './Loading'
 import { Error } from './Error'
 import './index.css'
 
+const defaultImage =
+  'http://elporvenir.mx/imagenes/editorialistasPerfil/default.png'
+
 class ListUsers extends React.Component {
+  state = {
+    open: false
+  }
+
   update = (proxy, payload) => {
     //payload from graphQL
     const { deleteUser } = payload.data
-
     //const data = userList from query
     const data = proxy.readQuery({ query: USERS_LIST_QUERY })
-
     //filter differents users from deleted id
     data.listUsers = data.listUsers.filter(user => user.id !== deleteUser.id)
-
     //rewrite userList
     proxy.writeQuery({ query: USERS_LIST_QUERY, data })
   }
 
+  openMessage = () => {
+    this.setState({ open: true })
+  }
+
+  closeMessage = () => {
+    this.setState({ open: false })
+  }
+
   handleDelete = deleteUser => {
-    if (confirm('Are you sure you want to delete this item?')) {
-      deleteUser()
-    }
+    deleteUser()
+    this.setState({ open: false })
   }
 
   render() {
@@ -44,16 +55,16 @@ class ListUsers extends React.Component {
                     data.listUsers.map((user, index) => (
                       <Grid.Column key={user.id}>
                         <Card
-                          image={
-                            'http://elporvenir.mx/imagenes/editorialistasPerfil/default.png'
-                          }
+                          image={defaultImage}
                           header={user.firstname}
                           meta={user.lastname}
                           description={user.phone}
                           description={user.id}
                           extra={
-                            <div>
-                              <Button style={{ float: 'left' }}>Editar</Button>
+                            <React.Fragment>
+                              <Button style={{ float: 'left', width: '45%' }}>
+                                Editar
+                              </Button>
                               <Mutation
                                 mutation={DELETE_USER_MUTATION}
                                 variables={{ id: user.id }}
@@ -62,18 +73,23 @@ class ListUsers extends React.Component {
                                   <div>
                                     <Button
                                       color="red"
-                                      style={{ float: 'right' }}
-                                      onClick={() =>
-                                        this.handleDelete(deleteUser)
-                                      }>
+                                      style={{ float: 'right', width: '45%' }}
+                                      onClick={this.openMessage}>
                                       Eliminar
                                     </Button>
+                                    <Confirm
+                                      open={this.state.open}
+                                      onCancel={this.closeMessage}
+                                      onConfirm={() =>
+                                        this.handleDelete(deleteUser)
+                                      }
+                                    />
                                     {loading && <Loading />}
                                     {error && <Error />}
                                   </div>
                                 )}
                               </Mutation>
-                            </div>
+                            </React.Fragment>
                           }
                         />
                       </Grid.Column>
