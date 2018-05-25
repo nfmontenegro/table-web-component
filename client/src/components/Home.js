@@ -1,9 +1,15 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  withRouter
+} from 'react-router-dom'
 import { Button, Dropdown, Menu } from 'semantic-ui-react'
 
 import { Company } from './Company'
 import ListUsers from './ListUsers'
+import AddUser from './AddUser'
 
 class Home extends React.Component {
   state = { activeItem: 'home' }
@@ -21,16 +27,27 @@ class Home extends React.Component {
             }}
           />
           <Menu.Item
-            name="messages"
+            name="list users"
             active={this.state.activeItem === 'messages'}
             onClick={() => {
               this.setState({ activeItem: this.state.active })
               this.props.history.push('/users')
             }}
           />
+          <Menu.Item
+            name="add user"
+            active={this.state.activeItem === 'add user'}
+            onClick={() => {
+              this.setState({ activeItem: this.state.active })
+              this.props.history.push('/addUser')
+            }}
+          />
         </Menu>
-        <Route exact path="/" component={Company} />
-        <Route path="/users" component={ListUsers} />
+        <Switch>
+          <Route exact path="/" component={Company} />
+          <Route path="/users" component={ListUsers} />
+          <Route path="/addUser" component={AddUser} />
+        </Switch>
       </div>
     )
   }

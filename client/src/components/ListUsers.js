@@ -17,16 +17,17 @@ class ListUsers extends React.Component {
     open: false
   }
 
-  update = (proxy, payload) => {
-    //payload from graphQL
-    const { deleteUser } = payload.data
-    //const data = userList from query
-    const data = proxy.readQuery({ query: USERS_LIST_QUERY })
-    //filter differents users from deleted id
-    data.listUsers = data.listUsers.filter(user => user.id !== deleteUser.id)
-    //rewrite userList
-    proxy.writeQuery({ query: USERS_LIST_QUERY, data })
-  }
+  // alternative refetchQueries
+  // update = (proxy, payload) => {
+  //   //payload from graphQL
+  //   const { deleteUser } = payload.data
+  //   //const data = userList from query
+  //   const data = proxy.readQuery({ query: USERS_LIST_QUERY })
+  //   //filter differents users from deleted id
+  //   data.listUsers = data.listUsers.filter(user => user.id !== deleteUser.id)
+  //   //rewrite userList
+  //   proxy.writeQuery({ query: USERS_LIST_QUERY, data })
+  // }
 
   openMessage = () => {
     this.setState({ open: true })

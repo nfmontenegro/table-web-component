@@ -19,9 +19,18 @@ export default `
   type Mutation {
     "Delete user"
     deleteUser(id: Int!): deletedUser
+    "Add user"
+    addUser(firstname: String!, lastname: String!, age: Int!, phone: String!): addUser
   }
 
   type deletedUser {
     id: Int!
+  }
+
+  type addUser {
+    firstname: String
+    lastname: String
+    age: Int
+    phone: String
   }
 `

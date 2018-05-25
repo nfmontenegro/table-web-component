@@ -1,6 +1,19 @@
+html, body{
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+}
+
 /* helpers */
 .mt-20 {
   margin-top: 20px;
+}
+
+.mt-40 {
+  margin-top: 40px !important;
 }
 
 .mb-20 {
@@ -11,16 +24,14 @@
   text-align: center;
 }
 
-.ui.menu {
-  margin: 0px !important;
+.margin-center {
+  margin: 0 auto;
+}
+
+.ui.form {
+  max-width: 35%;
 }
 
 .ui.card>.image, .ui.cards>.card>.image {
   width: 100%;
-  height: auto;
-}
-
-.wrap {
-  width: 100%;
-  background: #F9F9F9;
 }

@@ -20,6 +20,17 @@ export default {
       const queryDb = `DELETE FROM users WHERE id=${id}`
       const response = await pool.query(queryDb)
       return { id, msg: `User with id ${id} deleted` }
+    },
+    addUser: async (parent, user, { pool }) => {
+      const { firstname, lastname, age, phone } = user
+      const queryDb = `INSERT INTO users (lastname, firstname, age, phone) VALUES ($1, $2, $3, $4)`
+      const response = await pool.query(queryDb, [
+        firstname,
+        lastname,
+        age,
+        phone
+      ])
+      return user
     }
   }
 }
