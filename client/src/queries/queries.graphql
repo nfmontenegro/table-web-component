@@ -13,3 +13,12 @@ mutation DELETE_USER_MUTATION ($id: Int!) {
     id
   }
 }
+
+mutation ADD_USER_MUTATION ($firstname: String!, $lastname: String!, $age: Int!, $phone: String!) {
+  addUser(firstname: $firstname, lastname: $lastname, age: $age, phone: $phone) {
+    firstname
+    lastname
+    age
+    phone
+  }
+}

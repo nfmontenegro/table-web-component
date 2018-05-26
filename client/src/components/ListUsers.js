@@ -1,12 +1,10 @@
 import React from 'react'
 import { Query, Mutation } from 'react-apollo'
-import {
-  USERS_LIST_QUERY,
-  DELETE_USER_MUTATION
-} from '../queries/queries.graphql'
+import { USERS_LIST_QUERY } from '../queries/queries.graphql'
 import { Button, Card, Confirm, Container, Grid } from 'semantic-ui-react'
 import { Loading } from './Loading'
 import { Error } from './Error'
+import DeleteItem from './DeleteItem'
 import './index.css'
 
 const defaultImage =
@@ -37,11 +35,6 @@ class ListUsers extends React.Component {
     this.setState({ open: false })
   }
 
-  handleDelete = deleteUser => {
-    deleteUser()
-    this.setState({ open: false })
-  }
-
   render() {
     return (
       <Query query={USERS_LIST_QUERY}>
@@ -54,42 +47,18 @@ class ListUsers extends React.Component {
                 <Grid.Row>
                   {data.listUsers.length !== 0 ? (
                     data.listUsers.map((user, index) => (
-                      <Grid.Column key={user.id}>
+                      <Grid.Column key={index}>
                         <Card
                           image={defaultImage}
                           header={user.firstname}
                           meta={user.lastname}
-                          description={user.phone}
                           description={user.id}
                           extra={
                             <React.Fragment>
                               <Button style={{ float: 'left', width: '45%' }}>
                                 Editar
                               </Button>
-                              <Mutation
-                                mutation={DELETE_USER_MUTATION}
-                                variables={{ id: user.id }}
-                                refetchQueries={[{ query: USERS_LIST_QUERY }]}>
-                                {(deleteUser, { loading, error }) => (
-                                  <div>
-                                    <Button
-                                      color="red"
-                                      style={{ float: 'right', width: '45%' }}
-                                      onClick={this.openMessage}>
-                                      Eliminar
-                                    </Button>
-                                    <Confirm
-                                      open={this.state.open}
-                                      onCancel={this.closeMessage}
-                                      onConfirm={() =>
-                                        this.handleDelete(deleteUser)
-                                      }
-                                    />
-                                    {loading && <Loading />}
-                                    {error && <Error />}
-                                  </div>
-                                )}
-                              </Mutation>
+                              <DeleteItem id={user.id} />
                             </React.Fragment>
                           }
                         />

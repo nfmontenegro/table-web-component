@@ -8,7 +8,7 @@ const PATHS = {
 
 module.exports = {
   mode: 'development',
-  entry: ['react-hot-loader/patch', PATHS.src + '/index.js'],
+  entry: ['react-hot-loader/patch', 'babel-polyfill', PATHS.src + '/index.js'],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'client/dist')
