@@ -22,7 +22,7 @@ class EditUser extends React.Component {
 
   handleChange = e => {
     const { name, value } = e.target
-    const user = this.state.user
+    const { user } = this.state
     user[name] = value
     this.setState({ user })
   }
@@ -39,25 +39,28 @@ class EditUser extends React.Component {
   }
 
   render() {
-    console.log(this.state.user)
+    const id = parseInt(this.props.match.params.id)
     return (
-      <Query
-        query={GET_USER_QUERY}
-        variables={{ id: this.props.match.params.id }}>
+      <Query query={GET_USER_QUERY} variables={{ id }}>
         {({ loading, error, data }) => {
           if (loading) return <Loading />
           if (error) return <Error />
           return (
             <Mutation
               mutation={EDIT_USER_MUTATION}
-              refetchQueries={[{ query: USERS_LIST_QUERY }]}>
+              refetchQueries={[
+                {
+                  query: GET_USER_QUERY,
+                  variables: { id }
+                }
+              ]}>
               {(editUser, { loading, error }) => (
                 <Container style={{ marginTop: '60px' }}>
                   <Card style={{ width: '40%', margin: '0 auto' }}>
                     <Card.Content>
                       <Form
                         onSubmit={async e => {
-                          this.updateUser(e, editUser)
+                          this.updateItem(e, editUser)
                         }}>
                         <Form.Field>
                           <label>First Name</label>

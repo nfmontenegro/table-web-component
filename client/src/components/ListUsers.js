@@ -60,7 +60,7 @@ class ListUsers extends React.Component {
                                 onClick={() =>
                                   this.props.history.push(`/users/${user.id}`)
                                 }>
-                                Editar
+                                Edit
                               </Button>
                               <DeleteUser id={user.id} />
                             </React.Fragment>
