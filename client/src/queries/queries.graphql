@@ -8,6 +8,16 @@ query USERS_LIST_QUERY {
   }
 }
 
+query GET_USER_QUERY($id: Int!) {
+  user(id: $id) {
+    firstname
+    lastname
+    age
+    phone
+  }
+}
+
+
 mutation DELETE_USER_MUTATION ($id: Int!) {
   deleteUser(id: $id){
     id
@@ -16,6 +26,16 @@ mutation DELETE_USER_MUTATION ($id: Int!) {
 
 mutation ADD_USER_MUTATION ($firstname: String!, $lastname: String!, $age: Int!, $phone: String!) {
   addUser(firstname: $firstname, lastname: $lastname, age: $age, phone: $phone) {
+    firstname
+    lastname
+    age
+    phone
+  }
+}
+
+mutation EDIT_USER_MUTATION($id: Int!, $firstname: String!, $lastname: String!, $age: Int!, $phone: String!) {
+  editUser(id: $id, firstname: $firstname, lastname: $lastname, age: $age, phone: $phone) {
+    id
     firstname
     lastname
     age

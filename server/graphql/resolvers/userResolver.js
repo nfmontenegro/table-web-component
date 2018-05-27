@@ -9,7 +9,7 @@ export default {
       // const response = authService().verifyJWT(payload)
       return rows
     },
-    listUser: async (parent, { id }, { pool }) => {
+    user: async (parent, { id }, { pool }) => {
       const queryDb = `SELECT * FROM users WHERE id=${id}`
       const { rows } = await pool.query(queryDb)
       return rows[0]
@@ -31,6 +31,29 @@ export default {
         phone
       ])
       return user
+    },
+    editUser: async (
+      parent,
+      { id, firstname, lastname, age, phone },
+      { pool }
+    ) => {
+      const queryDb =
+        'UPDATE users SET firstname=$1, lastname=$2, age=$3, phone=$4 WHERE id=$5'
+      try {
+        const response = await pool.query(queryDb, [
+          firstname,
+          lastname,
+          age,
+          phone,
+          id
+        ])
+
+        const getUser = `SELECT * FROM users WHERE id=${id}`
+        const { rows } = await pool.query(getUser)
+        return rows[0]
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }

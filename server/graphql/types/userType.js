@@ -13,7 +13,7 @@ export default `
     "Get all the users"
     listUsers: [User],
     "Get a user"
-    listUser(id: Int!): User
+    user(id: Int!): User
   }
   
   type Mutation {
@@ -21,6 +21,8 @@ export default `
     deleteUser(id: Int!): deletedUser
     "Add user"
     addUser(firstname: String!, lastname: String!, age: Int!, phone: String!): addUser
+     "Edit user"
+    editUser(id: Int!, firstname: String!, lastname: String!, age: Int!, phone: String!): User
   }
 
   type deletedUser {

@@ -4,7 +4,7 @@ import { USERS_LIST_QUERY } from '../queries/queries.graphql'
 import { Button, Card, Confirm, Container, Grid } from 'semantic-ui-react'
 import { Loading } from './Loading'
 import { Error } from './Error'
-import DeleteItem from './DeleteItem'
+import DeleteUser from './DeleteUser'
 import './index.css'
 
 const defaultImage =
@@ -47,7 +47,7 @@ class ListUsers extends React.Component {
                 <Grid.Row>
                   {data.listUsers.length !== 0 ? (
                     data.listUsers.map((user, index) => (
-                      <Grid.Column key={index}>
+                      <Grid.Column key={index} className="mt-20">
                         <Card
                           image={defaultImage}
                           header={user.firstname}
@@ -55,10 +55,14 @@ class ListUsers extends React.Component {
                           description={user.id}
                           extra={
                             <React.Fragment>
-                              <Button style={{ float: 'left', width: '45%' }}>
+                              <Button
+                                style={{ float: 'left', width: '45%' }}
+                                onClick={() =>
+                                  this.props.history.push(`/users/${user.id}`)
+                                }>
                                 Editar
                               </Button>
-                              <DeleteItem id={user.id} />
+                              <DeleteUser id={user.id} />
                             </React.Fragment>
                           }
                         />

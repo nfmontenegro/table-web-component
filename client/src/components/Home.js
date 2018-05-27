@@ -9,6 +9,7 @@ import { Button, Dropdown, Menu } from 'semantic-ui-react'
 
 import { Company } from './Company'
 import ListUsers from './ListUsers'
+import EditUser from './EditUser'
 import AddUser from './AddUser'
 
 class Home extends React.Component {
@@ -45,7 +46,8 @@ class Home extends React.Component {
         </Menu>
         <Switch>
           <Route exact path="/" component={Company} />
-          <Route path="/users" component={ListUsers} />
+          <Route exact path="/users" component={ListUsers} />
+          <Route path="/users/:id" component={EditUser} />
           <Route path="/addUser" component={AddUser} />
         </Switch>
       </div>

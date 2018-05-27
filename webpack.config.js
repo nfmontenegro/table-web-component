@@ -11,6 +11,7 @@ module.exports = {
   entry: ['react-hot-loader/patch', 'babel-polyfill', PATHS.src + '/index.js'],
   output: {
     filename: '[name].bundle.js',
+    crossOriginLoading: 'anonymous',
     path: path.resolve(__dirname, 'client/dist')
   },
   module: {

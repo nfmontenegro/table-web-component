@@ -9,7 +9,7 @@ html, body{
 
 /* helpers */
 .mt-20 {
-  margin-top: 20px;
+  margin-top: 20px !important;
 }
 
 .mt-40 {
@@ -26,10 +26,6 @@ html, body{
 
 .margin-center {
   margin: 0 auto;
-}
-
-.ui.form {
-  max-width: 35%;
 }
 
 .ui.card>.image, .ui.cards>.card>.image {

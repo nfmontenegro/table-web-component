@@ -13,7 +13,7 @@ import {
   DELETE_USER_MUTATION
 } from '../queries/queries.graphql'
 
-class DeleteItem extends React.Component {
+class DeleteUser extends React.Component {
   state = {
     open: false,
     message: false
@@ -58,4 +58,4 @@ class DeleteItem extends React.Component {
   }
 }
 
-export default DeleteItem
+export default DeleteUser
