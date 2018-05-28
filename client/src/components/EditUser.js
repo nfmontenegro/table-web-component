@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  Button,
-  Card,
-  Confirm,
-  Container,
-  Grid,
-  Form,
-  Message
-} from 'semantic-ui-react'
+import { Button, Card, Confirm, Container, Grid, Form } from 'semantic-ui-react'
 import { Query, Mutation } from 'react-apollo'
 import {
   GET_USER_QUERY,
@@ -16,6 +8,7 @@ import {
 } from '../queries/queries.graphql'
 import { Loading } from './Loading'
 import { Error } from './Error'
+import { MessageComp } from './Message'
 
 class EditUser extends React.Component {
   state = {
@@ -64,12 +57,7 @@ class EditUser extends React.Component {
               {(editUser, { loading, error }) => (
                 <Container style={{ marginTop: '60px' }}>
                   {this.state.message && (
-                    <Message positive>
-                      <Message.Header>User edit successfully!</Message.Header>
-                      <p>
-                        User: <b>{JSON.stringify(this.state.user)}</b>
-                      </p>
-                    </Message>
+                    <MessageComp message={this.state.user} />
                   )}
                   <Card style={{ width: '40%', margin: '0 auto' }}>
                     <Card.Content>
@@ -80,6 +68,7 @@ class EditUser extends React.Component {
                         <Form.Field>
                           <label>First Name</label>
                           <input
+                            placeholder={data.user.firstname}
                             name="firstname"
                             value={this.state.user.username}
                             onChange={this.handleChange}
@@ -88,6 +77,7 @@ class EditUser extends React.Component {
                         <Form.Field>
                           <label>Last Name</label>
                           <input
+                            placeholder={data.user.lastname}
                             name="lastname"
                             value={this.state.user.lastname}
                             onChange={this.handleChange}
@@ -96,6 +86,7 @@ class EditUser extends React.Component {
                         <Form.Field>
                           <label>Age</label>
                           <input
+                            placeholder={data.user.age}
                             name="age"
                             value={this.state.user.age}
                             onChange={this.handleChange}
@@ -104,6 +95,7 @@ class EditUser extends React.Component {
                         <Form.Field>
                           <label>Phone</label>
                           <input
+                            placeholder={data.user.phone}
                             name="phone"
                             value={this.state.user.phone}
                             onChange={this.handleChange}
@@ -113,12 +105,7 @@ class EditUser extends React.Component {
                       </Form>
                     </Card.Content>
                   </Card>
-                  <Message warning>
-                    <Message.Header>User State!</Message.Header>
-                    <p>
-                      User: <b>{JSON.stringify(data.user)}</b>
-                    </p>
-                  </Message>
+                  <MessageComp message={data.user} />
                 </Container>
               )}
             </Mutation>
