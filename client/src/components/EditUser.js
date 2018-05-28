@@ -1,5 +1,13 @@
 import React from 'react'
-import { Button, Card, Confirm, Container, Grid, Form } from 'semantic-ui-react'
+import {
+  Button,
+  Card,
+  Confirm,
+  Container,
+  Grid,
+  Form,
+  Message
+} from 'semantic-ui-react'
 import { Query, Mutation } from 'react-apollo'
 import {
   GET_USER_QUERY,
@@ -29,13 +37,17 @@ class EditUser extends React.Component {
 
   updateUser = async (e, editUser) => {
     e.preventDefault()
+    const timeout = 3000
     const response = await editUser({
       variables: {
         id: this.props.match.params.id,
         ...this.state.user
       }
     })
-    console.log(response)
+    this.setState({ message: true })
+    setTimeout(() => {
+      this.setState({ message: false })
+    }, timeout)
   }
 
   render() {
@@ -48,25 +60,28 @@ class EditUser extends React.Component {
           return (
             <Mutation
               mutation={EDIT_USER_MUTATION}
-              refetchQueries={[
-                {
-                  query: GET_USER_QUERY,
-                  variables: { id }
-                }
-              ]}>
+              refetchQueries={[{ query: GET_USER_QUERY, variables: { id } }]}>
               {(editUser, { loading, error }) => (
                 <Container style={{ marginTop: '60px' }}>
+                  {this.state.message && (
+                    <Message positive>
+                      <Message.Header>User edit successfully!</Message.Header>
+                      <p>
+                        User: <b>{JSON.stringify(this.state.user)}</b>
+                      </p>
+                    </Message>
+                  )}
                   <Card style={{ width: '40%', margin: '0 auto' }}>
                     <Card.Content>
                       <Form
                         onSubmit={async e => {
-                          this.updateItem(e, editUser)
+                          this.updateUser(e, editUser)
                         }}>
                         <Form.Field>
                           <label>First Name</label>
                           <input
                             name="firstname"
-                            defaultValue={data.user.firstname}
+                            value={this.state.user.username}
                             onChange={this.handleChange}
                           />
                         </Form.Field>
@@ -74,7 +89,7 @@ class EditUser extends React.Component {
                           <label>Last Name</label>
                           <input
                             name="lastname"
-                            defaultValue={data.user.lastname}
+                            value={this.state.user.lastname}
                             onChange={this.handleChange}
                           />
                         </Form.Field>
@@ -82,7 +97,7 @@ class EditUser extends React.Component {
                           <label>Age</label>
                           <input
                             name="age"
-                            defaultValue={data.user.age}
+                            value={this.state.user.age}
                             onChange={this.handleChange}
                           />
                         </Form.Field>
@@ -90,7 +105,7 @@ class EditUser extends React.Component {
                           <label>Phone</label>
                           <input
                             name="phone"
-                            defaultValue={data.user.phone}
+                            value={this.state.user.phone}
                             onChange={this.handleChange}
                           />
                         </Form.Field>
@@ -98,6 +113,12 @@ class EditUser extends React.Component {
                       </Form>
                     </Card.Content>
                   </Card>
+                  <Message warning>
+                    <Message.Header>User State!</Message.Header>
+                    <p>
+                      User: <b>{JSON.stringify(data.user)}</b>
+                    </p>
+                  </Message>
                 </Container>
               )}
             </Mutation>
