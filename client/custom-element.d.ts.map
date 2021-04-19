@@ -1,0 +1,1 @@
+{"version":3,"file":"custom-element.d.ts","sourceRoot":"","sources":["src/custom-element.ts"],"names":[],"mappings":"AAAA,OAAO,EACL,UAAU,EAKX,MAAM,aAAa,CAAC;AAMrB,qBACa,aAAc,SAAQ,UAAU;IAE3C,KAAK,OAAQ;IAEb,IAAI,UAAM;IAEV,aAAa,SAAM;IAGnB,WAAW;IAQX,MAAM;CAQP;AAED,OAAO,CAAC,MAAM,CAAC;IACb,UAAU,qBAAqB;QAC7B,gBAAgB,EAAE,aAAa,CAAC;KACjC;CACF"}

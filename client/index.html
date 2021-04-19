@@ -1,0 +1,23 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>&lt;my-element> Demo</title>
+  <script type="module" src="./custom-element.js"></script>
+  <style>
+    p {
+      border: solid 1px blue;
+      padding: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <custom-element hello="Heeeeenlo" data='[{"body": "ah"}, {"body": "test"}]'>
+    <p>This is child content</p>
+  </custom-element>
+</body>
+
+</html>
