@@ -3,7 +3,8 @@ export declare class CustomElement extends LitElement {
     hello: null;
     data: never[];
     customMessage: string;
-    handleClick(): void;
+    private handleClick;
+    private emit;
     render(): import("lit-element").TemplateResult;
 }
 declare global {

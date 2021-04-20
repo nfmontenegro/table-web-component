@@ -1,6 +1,6 @@
 {
   "name": "web-components-test-222",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Example webcomponents with sockets",
   "main": "custom-element.js",
   "module": "custom-element.js",

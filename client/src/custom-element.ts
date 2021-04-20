@@ -1,10 +1,4 @@
-import {
-  LitElement,
-  html,
-  customElement,
-  property,
-  eventOptions,
-} from 'lit-element';
+import {LitElement, html, customElement, property} from 'lit-element';
 
 interface Element {
   body: string;
@@ -12,29 +6,39 @@ interface Element {
 
 @customElement('custom-element')
 export class CustomElement extends LitElement {
-  @property({type: String})
-  hello = null;
-  @property({type: Array})
-  data = [];
-  @property({type: String})
-  customMessage = '';
+  @property({type: String}) hello = null;
+  @property({type: Array}) data = [];
+  @property({type: String}) customMessage = '';
 
-  @eventOptions({capture: true})
-  handleClick() {
+  private handleClick = () => {
     if (this.customMessage) {
       this.customMessage = '';
     } else {
       this.customMessage = `Set a new message ${this.hello}`;
     }
-  }
+  };
+
+  private emit = () => {
+    const event = new CustomEvent('custom-click', {
+      detail: 'Test',
+    });
+    this.dispatchEvent(event);
+  };
 
   render() {
     return html`<h1>Hello, ${this.hello}</h1>
-      <p>
-        ${this.data.map((element: Element) => html`<div>${element.body}</div>`)}
-      </p>
+
       <button @click="${this.handleClick}">Click me!!</button>
-      ${this.customMessage ? html`${this.customMessage}` : null} `;
+      <button @click="${this.emit}">Click me function!!</button>
+      <p>
+        ${this.data.length > 0
+          ? this.data.map(
+              (element: Element) => html`<div>${element.body}</div>`
+            )
+          : 'Loading...'}
+      </p>
+
+      ${this.customMessage ? html`${this.customMessage}` : null}`;
   }
 }
 
