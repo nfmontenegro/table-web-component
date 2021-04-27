@@ -10,20 +10,33 @@
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/web-component/web-component.esm.js",
-  "files": ["dist/", "loader/"],
+  "files": [
+    "dist/",
+    "loader/"
+  ],
   "scripts": {
     "build": "stencil build --docs",
     "build:watch": "stencil build --docs --watch",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@stencil/core": "^2.0.1"
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^26.0.22"
+    "@babel/core": "^7.13.16",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-knobs": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/addon-notes": "^5.3.21",
+    "@storybook/html": "^6.2.9",
+    "@types/jest": "^26.0.22",
+    "babel-loader": "^8.2.2"
   }
 }

@@ -89,20 +89,26 @@ export class TableComponent {
   render() {
     return (
       <div>
-        <search-component updateList={this.updateList} setDefaultData={this.setDefaultData} />
-        <table>
-          <tr>{this.renderTheads()}</tr>
-          {this.renderBody()}
-        </table>
-        <pagination-component
-          pages={this.pages}
-          goToPreviousPage={this.goToPreviousPage}
-          currentPage={this.currentPage}
-          getPaginationGroup={this.getPaginationGroup}
-          changePage={this.changePage}
-          goToNextPage={this.goToNextPage}
-        />
-        <h1>Current page: {this.currentPage}</h1>
+        {this.data.length > 0 ? (
+          <div>
+            <search-component updateList={this.updateList} setDefaultData={this.setDefaultData} />
+            <table>
+              <tr>{this.renderTheads()}</tr>
+              {this.renderBody()}
+            </table>
+            <pagination-component
+              pages={this.pages}
+              goToPreviousPage={this.goToPreviousPage}
+              currentPage={this.currentPage}
+              getPaginationGroup={this.getPaginationGroup}
+              changePage={this.changePage}
+              goToNextPage={this.goToNextPage}
+            />
+            <h1>Current page: {this.currentPage}</h1>{' '}
+          </div>
+        ) : (
+          'Loading ...'
+        )}
       </div>
     );
   }
